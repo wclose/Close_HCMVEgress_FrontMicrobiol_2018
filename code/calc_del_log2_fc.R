@@ -1,6 +1,6 @@
 # import variables from sam probes and weekes proteins
-source("sam_probe.R")
-source("weekes.R")
+source("code/import_pellett_sam_probe.R")
+source("code/import_weekes_protein.R")
 
 #####
 
@@ -24,8 +24,8 @@ sam_probe_data$del_log2_fc_towne <- sam_probe_data$log2_towne_96_mock - sam_prob
 sam_probe_data$del_log2_fc_ad169 <- sam_probe_data$log2_ad169_96_mock - sam_probe_data$log2_ad169_12_mock
 
 # check to make sure cols/rows look correct
-head(sam_probe_data)
-tail(sam_probe_data)
+#head(sam_probe_data)
+#tail(sam_probe_data)
 
 #####
 
@@ -47,5 +47,5 @@ weekes_data_host$del_log2_fc_pm2 <- weekes_data_host$log2_pm2_96_mock - weekes_d
 weekes_data_host$del_log2_fc_wcl2 <- weekes_data_host$log2_wcl2_96_mock - weekes_data_host$log2_wcl2_12_mock
 
 # check to make sure cols/rows look correct
-head(weekes_data_host)
-tail(weekes_data_host)
+#head(weekes_data_host)
+#tail(weekes_data_host)

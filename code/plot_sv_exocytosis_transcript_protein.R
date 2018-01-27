@@ -1,4 +1,6 @@
-library(tidyverse)
+source("code/import_pellett_sam_probe.R")
+source("code/import_weekes_protein.R")
+
 library(viridis)
 library(extrafont)
 
@@ -11,9 +13,6 @@ secretion_schematic_proteins <- c('SYTL2', 'RAB3GAP1', 'RAB3IL1', 'RAB3IP', 'TBC
 
 
 # curating the pellett transcript data --------------------------------------------
-
-# importing all of the pellett data
-pellett_probe <- read_tsv("pellett_probe")
 
 # selecting out all of the rows corresponding to the schematic
 secretion_transcripts <- pellett_probe[pellett_probe$SYMBOL %in% secretion_schematic_proteins,]
@@ -71,11 +70,6 @@ secretion_transcripts_log2_fc_sd <- secretion_transcripts_log2_fc %>%
 
 
 # curating the weekes protein data ----------------------------------------
-
-# importing weekes data as tibble
-weekes_data <- read_tsv("weekes_raw")
-weekes_data_host <- weekes_data %>%
-  filter(weekes_data$Species != "HCMVM")
 
 # selecting out all of the rows corresponding to the schematic
 secretion_proteins <- weekes_data_host[weekes_data_host$Symbol %in% secretion_schematic_proteins,]
@@ -149,8 +143,8 @@ ggplot(secretion_transcripts_plot_data) +
         legend.position = "top")
 
 # save the plots
-ggsave("secretion_transcripts_plot.png", dpi = 600)
-ggsave("secretion_transcripts_plot.pdf", dpi = 600)
+#ggsave("figures/secretion_transcripts_plot.png", dpi = 600)
+#ggsave("figures/secretion_transcripts_plot.pdf", dpi = 600)
 
 
 # plotting the protein data -----------------------------------------------
@@ -192,6 +186,6 @@ ggplot(secretion_proteins_plot_data) +
         legend.position = "top")
 
 # save the plots
-ggsave("secretion_proteins_plot.png", dpi = 600)
-ggsave("secretion_proteins_plot.pdf", dpi = 600)
+#ggsave("figures/secretion_proteins_plot.png", dpi = 600)
+#ggsave("figures/secretion_proteins_plot.pdf", dpi = 600)
 

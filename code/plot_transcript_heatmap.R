@@ -1,11 +1,11 @@
-source("sam_probe.R")
+source("import_pellett_sam_probe.R")
 
 library(limma)
 library(gplots)
 library(dendextend)
 
 # import data sets needed
-secretory_genes_of_interest <- read.table("secretory_genes_of_interest", header = T, sep = "\t")
+secretory_genes_of_interest <- read.table("secretory_genes_of_interest.txt", header = T, sep = "\t")
 gene_ontology_secretory_genes <- read.table("transcript_filtered_gene_list.txt", header = F)
 
 # adjust dataframes to be characters for joining functions later
@@ -57,14 +57,14 @@ heatmap_genes_of_interest <- heatmap_genes_of_interest %>%
   select(-alt_Symbol)
 
 # exporting as a table for future use
-write_tsv(heatmap_genes_of_interest, "transcript_heatmap_genes_of_interest")
+write_tsv(heatmap_genes_of_interest, "transcript_heatmap_genes_of_interest.txt")
 
 
 
 # setting up the data for plotting ----------------------------------------
 
 targets <- readTargets()
-eset <- read.ilmn(files = "transcript_heatmap_genes_of_interest", probeid = "SYMBOL")
+eset <- read.ilmn(files = "transcript_heatmap_genes_of_interest.txt", probeid = "SYMBOL")
 
 design <- cbind("Mock 1"=c(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0),
                 "Mock 2"=c(0,0,0,0,0,1,0,0,0,0,0,0,0,0,0),

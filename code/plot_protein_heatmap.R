@@ -1,4 +1,4 @@
-source("weekes.R")
+source("code/import_weekes_protein.R")
 
 library(dendextend)
 library(gplots)
@@ -7,12 +7,12 @@ library(gplots)
 
 # importing list of genes of interest
 # genes from literature
-secretory_genes_of_interest <- read.table("secretory_genes_of_interest", header = T, sep = "\t")
+secretory_genes_of_interest <- read.table("data/secretory_genes_of_interest.txt", header = T, sep = "\t")
 secretory_genes_of_interest$PROBE_ID <- as.character(secretory_genes_of_interest$PROBE_ID)
 secretory_genes_of_interest$SYMBOL <- as.character(secretory_genes_of_interest$SYMBOL)
 
 #genes from gene ontology network
-gene_ontology_secretory_genes <- read.table("protein_filtered_gene_list.txt", header = F)
+gene_ontology_secretory_genes <- read.table("data/protein_filtered_gene_list.txt", header = F)
 gene_ontology_secretory_genes$V1 <- as.character(gene_ontology_secretory_genes$V1)
 
 # combining lists
@@ -85,7 +85,7 @@ protein_secrete <- heatmap.2(mat_data_log2_fin, col=redgreen(100), scale="row", 
 protein_col_dend_rotate <- rotate(protein_secrete$colDendrogram, c(8,7,5,6,3,4,1,2))
 
 # now for final plotting
-#pdf(file="protein_heatmap.pdf")
+#pdf(file="figures/protein_heatmap.pdf")
 
 heatmap.2(mat_data_log2, col=redgreen(100), scale="row", key=TRUE,
           symkey=FALSE, density.info="none", trace="none",
@@ -120,8 +120,8 @@ ggplot(protein_heatmap_row_means) +
   coord_flip()
 
 # save the plots
-#ggsave("protein_heatmap_rows_means.png", dpi = 600)
-#ggsave("protein_heatmap_rows_means.pdf", dpi = 600)
+#ggsave("figures/protein_heatmap_rows_means.png", dpi = 600)
+#ggsave("figures/protein_heatmap_rows_means.pdf", dpi = 600)
 
 
 
@@ -162,7 +162,7 @@ ggplot(protein_heatmap_row_means) +
 #protein_col_dend_rotate <- rotate(protein_secrete$colDendrogram, c(8,7,5,6,3,4,1,2))
 
 # now for final plotting
-#png(file="protein_heatmap_v2.png", width = 2718, height = 4000, res = 300)
+#png(file="figures/protein_heatmap_v2.png", width = 2718, height = 4000, res = 300)
 
 #heatmap.2(mat_data_log2, col=redgreen(100), scale="row", key=TRUE,
           #symkey=FALSE, density.info="none", trace="none",

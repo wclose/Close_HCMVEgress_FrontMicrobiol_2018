@@ -1,6 +1,5 @@
-source("del_log2_fc.R")
+source("code/calc_del_log2_fc.R")
 
-library(tidyverse)
 library(ggpmisc)
 
 # gathering all of the dellog2fc data into a single dataframe by joining weekes and gurczynski datasets
@@ -9,12 +8,12 @@ protein_vs_transcript_coord <- full_join(weekes_data_host[, c("Symbol", "del_log
                                          by = c("Symbol" = "SYMBOL"))
 
 # importing gene list from GO analysis of transcriptional data
-transcript_gene_list <- read.csv("transcript_filtered_gene_list.txt", header = F)
+transcript_gene_list <- read.csv("data/transcript_filtered_gene_list.txt", header = F)
 transcript_gene_list <- transcript_gene_list$V1
 length(unique(transcript_gene_list))
 
 # importing gene list from GO analysis of protein data
-protein_gene_list <- read.csv("protein_filtered_gene_list.txt", header = F)
+protein_gene_list <- read.csv("data/protein_filtered_gene_list.txt", header = F)
 protein_gene_list <- protein_gene_list$V1
 length(unique(protein_gene_list))
 
@@ -96,8 +95,8 @@ ggplot(data = protein_vs_transcript_coord) +
         text = element_text(face = "bold", family = "serif", size = 12),
         legend.position = "top")
 
-ggsave("protein_vs_towne_plot.png", dpi = 600)
-ggsave("protein_vs_towne_plot.pdf", dpi = 600)
+#ggsave("figures/protein_vs_towne_plot.png", dpi = 600)
+#ggsave("figures/protein_vs_towne_plot.pdf", dpi = 600)
 # pm = 0.16, wcl = 0.34
 
 # protein v ad169
@@ -124,8 +123,8 @@ ggplot(data = protein_vs_transcript_coord) +
         text = element_text(face = "bold", family = "serif", size = 12),
         legend.position = "top")
 
-ggsave("protein_vs_ad169_plot.png", dpi = 600)
-ggsave("protein_vs_ad169_plot.pdf", dpi = 600)
+#ggsave("figures/protein_vs_ad169_plot.png", dpi = 600)
+#ggsave("figures/protein_vs_ad169_plot.pdf", dpi = 600)
 # pm = 0.13, wcl = 0.26
 
 # towne v ad169
@@ -147,8 +146,8 @@ ggplot(data = protein_vs_transcript_coord) +
         text = element_text(face = "bold", family = "serif", size = 12),
         legend.position = "top")
 
-ggsave("towne_vs_ad169_plot.png", dpi = 600)
-ggsave("towne_vs_ad169_plot.pdf", dpi = 600)
+#ggsave("figures/towne_vs_ad169_plot.png", dpi = 600)
+#ggsave("figures/towne_vs_ad169_plot.pdf", dpi = 600)
 # r = 0.87
 
 # pm vs wcl
@@ -170,7 +169,7 @@ ggplot(data = protein_vs_transcript_coord) +
         text = element_text(face = "bold", family = "serif", size = 12),
         legend.position = "top")
 
-ggsave("pm_vs_wcl_plot.png", dpi = 600)
-ggsave("pm_vs_wcl_plot.pdf", dpi = 600)
+#ggsave("figures/pm_vs_wcl_plot.png", dpi = 600)
+#ggsave("figures/pm_vs_wcl_plot.pdf", dpi = 600)
 # r = 0.39
 

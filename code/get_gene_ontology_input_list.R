@@ -1,4 +1,4 @@
-source("del_log2_fc.R")
+source("code/calc_del_log2_fc.R")
 
 # filter transcript data based on significance
 transcript_map_data <- sam_probe_data %>% 
@@ -11,7 +11,7 @@ transcript_map_data <- sam_probe_data %>%
 
 transcript_map_data_list <- unique(c(transcript_map_data$alt_Symbol, transcript_map_data$SYMBOL))
 
-write(transcript_map_data_list, "transcript_gene_ontology_input_list.txt")
+#write(transcript_map_data_list, "data/transcript_gene_ontology_input_list.txt")
 
 # filter protein data based on significance
 protein_map_data <- weekes_data_host %>% 
@@ -24,4 +24,4 @@ protein_map_data <- weekes_data_host %>%
 
 protein_map_data_list <- unique(protein_map_data$Symbol)
 
-write(protein_map_data_list, "protein_gene_ontology_input_list.txt")
+#write(protein_map_data_list, "data/protein_gene_ontology_input_list.txt")
