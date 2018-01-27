@@ -1,12 +1,12 @@
-source("import_pellett_sam_probe.R")
+source("code/import_pellett_sam_probe.R")
 
 library(limma)
 library(gplots)
 library(dendextend)
 
 # import data sets needed
-secretory_genes_of_interest <- read.table("secretory_genes_of_interest.txt", header = T, sep = "\t")
-gene_ontology_secretory_genes <- read.table("transcript_filtered_gene_list.txt", header = F)
+secretory_genes_of_interest <- read.table("data/secretory_genes_of_interest.txt", header = T, sep = "\t")
+gene_ontology_secretory_genes <- read.table("data/transcript_filtered_gene_list.txt", header = F)
 
 # adjust dataframes to be characters for joining functions later
 secretory_genes_of_interest$PROBE_ID <- as.character(secretory_genes_of_interest$PROBE_ID)
@@ -57,14 +57,14 @@ heatmap_genes_of_interest <- heatmap_genes_of_interest %>%
   select(-alt_Symbol)
 
 # exporting as a table for future use
-write_tsv(heatmap_genes_of_interest, "transcript_heatmap_genes_of_interest.txt")
+write_tsv(heatmap_genes_of_interest, "data/transcript_heatmap_genes_of_interest.txt")
 
 
 
 # setting up the data for plotting ----------------------------------------
 
-targets <- readTargets()
-eset <- read.ilmn(files = "transcript_heatmap_genes_of_interest.txt", probeid = "SYMBOL")
+targets <- readTargets("data/Targets.txt")
+eset <- read.ilmn(files = "data/transcript_heatmap_genes_of_interest.txt", probeid = "SYMBOL")
 
 design <- cbind("Mock 1"=c(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0),
                 "Mock 2"=c(0,0,0,0,0,1,0,0,0,0,0,0,0,0,0),
@@ -113,7 +113,7 @@ transcript_secrete <- heatmap.2(esetSel, col=redgreen(100), scale="row", key=TRU
 col_dend_rotate <- rotate(transcript_secrete$colDendrogram, c(7:15,1:6))
 
 # now for final plotting
-#pdf(file="transcript_heatmap.pdf")
+#pdf(file="figures/transcript_heatmap.pdf")
 
 heatmap.2(esetSel, col=redgreen(100), scale="row", key=TRUE,
           symkey=FALSE, density.info="none", trace="none",
@@ -147,6 +147,6 @@ ggplot(transcript_heatmap_row_means) +
   coord_flip()
 
 # save the plots
-#ggsave("transcript_heatmap_row_means.png", dpi = 600)
-#ggsave("transcript_heatmap_row_means.pdf", dpi = 600)
+#ggsave("figures/transcript_heatmap_row_means.png", dpi = 600)
+#ggsave("figures/transcript_heatmap_row_means.pdf", dpi = 600)
 
