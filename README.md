@@ -15,7 +15,9 @@ Human cytomegalovirus (HCMV) is an important pathogen in developing fetuses, neo
 	|
 	|- code/  # all programmatic code (R)
 	|
-	|- figures/ # directory containing raw figures output from R
+	|- gene_ontology/ # cytoscape-associated files for gene ontology annotation
+	|
+	|- figures/ # directory containing raw figures output from R and cytoscape
 
 
 ### Use
