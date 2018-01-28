@@ -25,3 +25,5 @@ protein_map_data <- weekes_data_host %>%
 protein_map_data_list <- unique(protein_map_data$Symbol)
 
 #write(protein_map_data_list, "data/protein_gene_ontology_input_list.txt")
+
+# import the lists into cytoscape for gene ontology annotation and network map generation
