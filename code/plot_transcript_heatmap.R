@@ -5,28 +5,11 @@ library(gplots)
 library(dendextend)
 
 # import data sets needed
-secretory_genes_of_interest <- read.table("data/secretory_genes_of_interest.txt", header = T, sep = "\t")
-gene_ontology_secretory_genes <- read.table("data/transcript_filtered_gene_list.txt", header = F)
-
-# adjust dataframes to be characters for joining functions later
-secretory_genes_of_interest$PROBE_ID <- as.character(secretory_genes_of_interest$PROBE_ID)
-pellett_probe$PROBE_ID <- as.character(pellett_probe$PROBE_ID)
-
-secretory_genes_of_interest$SYMBOL <- as.character(secretory_genes_of_interest$SYMBOL)
-gene_ontology_secretory_genes$V1 <- as.character(gene_ontology_secretory_genes$V1)
-pellett_probe$SYMBOL <- as.character(pellett_probe$SYMBOL)
-
-# finding the gene ontology related genes not represented in the initial curation of vesicle-mediated
-# transport related transcripts
-genes_not_matched <- anti_join(gene_ontology_secretory_genes, secretory_genes_of_interest, by = c("V1" = "SYMBOL"))
-
-# accessing raw data set to attach data to initial genes of interest and missing genes
-secretory_genes_of_interest_data <- left_join(secretory_genes_of_interest, sam_probe_data, by = c("PROBE_ID", "SYMBOL"))
-genes_not_matched_data <- sam_probe_data %>% 
-  filter(SYMBOL %in% genes_not_matched$V1)
+gene_ontology_transcript_genes <- read_tsv("data/transcript_filtered_gene_list.txt", col_names = F)
 
 # combining all of the genes of interest with their data
-heatmap_genes_of_interest <- full_join(secretory_genes_of_interest_data, genes_not_matched_data, rm.na = T)
+heatmap_genes_of_interest <- sam_probe_data %>% 
+  filter(SYMBOL %in% gene_ontology_transcript_genes$X1)
 
 # removing columns that aren't being used for heatmap
 col_to_remove <- c("\\w3\\..*", "\\w4\\..*", "\\w5\\..*", "\\w7\\..*", "\\w9\\..*", "\\w10\\..*", "\\w12\\..*")
